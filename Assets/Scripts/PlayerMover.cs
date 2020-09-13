@@ -12,7 +12,6 @@ public class PlayerMover : MonoBehaviour
 
     private void Awake()
     {
-        //IsMoving = false;
         _target = transform.position;
     }
 
