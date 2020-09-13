@@ -4,12 +4,11 @@ using UnityEngine;
 
 namespace Obstacles
 {
-    public class Damager : MonoBehaviour
+    public class Damager : TrackingPlayer
     {
-        private void OnTriggerEnter(Collider other)
+        protected override void Find(Player player)
         {
-            if (other.TryGetComponent(out Player player))
-                player.TakeDamage();
+            player.TakeDamage();
         }
     }
 }

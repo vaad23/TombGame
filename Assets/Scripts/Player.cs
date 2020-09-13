@@ -2,11 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerInput _input;
     [SerializeField] private PlayerMover _mover;
+    [SerializeField] private Collider _collider;
+    [SerializeField] private UnityEvent _died;
+
+    private bool isTrafficBan;
 
     private void OnEnable()
     {
@@ -25,6 +30,9 @@ public class Player : MonoBehaviour
 
     private void InputValidation(PlayerInput.Direction direction)
     {
+        if (isTrafficBan)
+            return;
+
         switch (direction)
         {
             case PlayerInput.Direction.Left:
@@ -38,6 +46,14 @@ public class Player : MonoBehaviour
 
     public void TakeDamage()
     {
-        Debug.Log("Take Damage");
+        TrafficBan(true);
+        _died?.Invoke();
+    }
+
+    public void TrafficBan(bool isBan)
+    {
+        isTrafficBan = isBan;
+        _collider.enabled = !isBan;
+        _mover.StopMove();
     }
 }

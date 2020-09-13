@@ -47,4 +47,11 @@ public class PlayerMover : MonoBehaviour
     {
         HorizontalMove(value);
     }
+
+    public void StopMove()
+    {
+        float distance = _target.x - transform.position.x;
+        distance -= (int)distance;
+        _target.x = transform.position.x + distance;
+    }
 }
